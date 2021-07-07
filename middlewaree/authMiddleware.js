@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
     const token = req.headers.authorization;
     if (!token) {
       return res
-        .status(403)
+        .status(305)
         .json({ authorization: false, message: "User is not logged" });
     }
     const decodedData = jwt.verify(token.split(" ")[1], secret);
@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
     next();
   } catch (e) {
     return res
-      .status(403)
+      .status(305)
       .json({ authorization: false, message: "User is not logged" });
   }
 };
