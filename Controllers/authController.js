@@ -95,12 +95,12 @@ class authController {
       const { email, companyname } = req.body;
 
       const activationCode = getRandomInt(999999);
-      const candidate = await Company.findOne({ email });
+      const candidate = await Company.findOne({$or:[{email}, {companyname}]});
 
       if (candidate) {
         return res
           .status(404)
-          .json({ succses: false, message: "email already used" });
+          .json({ succses: false, message: "Email or companyname already used" });
       }
 
       await transporter.sendMail(
