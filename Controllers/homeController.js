@@ -49,6 +49,20 @@ class homeController {
       res.status(404).json({ succes: false, message: "Save error" });
     }
   }
+
+  async deleteUser(req, res) {
+    try {
+      const { id } = req.user;
+      const candidate = await User.findOneAndDelete({ _id: id });
+      await Company.deleteOne({ _id: candidate.company });
+      return res.status(200).json({
+        succses: true,
+        message: "Succes Delete",
+      });
+    } catch (e) {
+      res.status(404).json({ succes: false, message: "Delete error" });
+    }
+  }
 }
 
 module.exports = new homeController();

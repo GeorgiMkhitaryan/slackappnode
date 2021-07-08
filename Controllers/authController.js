@@ -76,9 +76,7 @@ class authController {
         return res.status(404).json({ message: `Login error` });
       }
       const token = generateAccessToken(user._id);
-      return res
-        .status(200)
-        .json({ token, subDomain: user.company.companyname });
+      return res.status(200).json({ token });
     } catch (e) {
       console.log(e);
       res.status(404).json({ message: "Login error" });
